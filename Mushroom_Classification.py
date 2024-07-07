@@ -11,6 +11,8 @@ from tensorflow.keras import layers, models
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
 import pickle
 
+#PREPARE DATA AND DEFINE MODEL
+
 # Define constants
 input_shape = (224, 224, 3)
 epochs = 30
