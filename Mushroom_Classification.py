@@ -11,6 +11,7 @@ from tensorflow.keras import layers, models
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
 import pickle
 
+
 #PREPARE DATA AND DEFINE MODEL
 
 # Define constants
