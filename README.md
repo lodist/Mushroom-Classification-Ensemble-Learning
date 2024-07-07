@@ -9,7 +9,6 @@ The dataset contains images from the Danish Svampe Atlas, with over 85,000 train
 ### Download the Dataset
 
 Download the dataset from the repository as `all_fungi.zip` and extract it to the appropriate directory:
-- Place the extracted files in `data/fungi_images/`.
 
 ### Terms of Use
 
