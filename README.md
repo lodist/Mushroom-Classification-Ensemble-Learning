@@ -128,7 +128,7 @@ The script performs the following steps:
 
 To run the script, use the following command:
 ```bash
-python fungi_classification.py 'path_to/image.jpg'
+python Mushroom_Classification.py 'path_to/image.jpg'
 ```
 
 Replace 'path_to/image.jpg' with the path to the image you want to classify.
