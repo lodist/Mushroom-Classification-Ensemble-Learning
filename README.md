@@ -53,7 +53,8 @@ Before running the code, ensure you have the following installed:
     ```
 
 3. Extract the dataset:
-    - Download `all_fungi.zip` from the repository.
+    - Download the dataset
+      [Download all_fungi.zip](https://zenodo.org/record/12682745/files/all_fungi.zip)
     - Extract the contents to your repository.
 
 ## Script Explanation
