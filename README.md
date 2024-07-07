@@ -48,12 +48,12 @@ Before running the code, ensure you have the following installed:
 
 2. Install the required Python packages:
     ```bash
-    pip install tensorflow scikit-learn numpy matplotlib pandas pickle
+    pip install tensorflow scikit-learn numpy matplotlib pandas
     ```
 
 3. Extract the dataset:
     - Download `all_fungi.zip` from the repository.
-    - Extract the contents to `data/fungi_images/`.
+    - Extract the contents to your repository.
 
 ## Script Explanation
 
@@ -63,7 +63,7 @@ The script performs the following steps:
 
 2. **Configuration parameters**: Sets up the configuration parameters, including paths and hyperparameters.
 
-3. **Move folders with fewer images**: The script moves folders containing a minimum number of images to ensure sufficient data for training each class.
+3. **Move folders with fewer images**: The script moves folders containing a minimum number of images to ensure sufficient data for training each class. Test with various limits and adapt as needed to ëxploit maximum potential.
 
     ```python
     def move_folders_with_fewer_images(source_dir, target_dir, min_images=100):
@@ -103,12 +103,16 @@ The script performs the following steps:
 6. **Train models for each subset**: Trains four separate models, each on a subset of the classes, to handle the large dataset efficiently.
 
     ```python
+    # Loop and train models for each class subset
     for i, class_subset in enumerate(class_names_split):
+        print(f"Training model for class subset {i + 1}")
         train_loader, val_loader = get_data_loaders_subset(train_dir, val_dir, class_subset)
         model = build_model(input_shape, len(class_subset))
-        history = train_model(model, train_loader, val_loader, epochs)
-        model_path = f'mushroom_classification_model_{i}.h5'
-        model.save(model_path)
+        history = train_model(model, train_loader, val_loader, f'mushroom_classification_model_{i}.h5', epochs)
+        model.save(f'mushroom_classification_model_{i}.h5')
+        model_paths.append(f'mushroom_classification_model_{i}.h5')
+
+    print("Model training complete. Model paths:", model_paths)
     ```
 
 7. **Convert models to TensorFlow Lite**: Converts the trained models to TensorFlow Lite format for efficient deployment.
@@ -124,14 +128,6 @@ The script performs the following steps:
     top_3_predictions = predict_ensemble(image_path, model_paths, 'class_names_split.pickle')
     ```
 
-## Usage Example
-
-To run the script, use the following command:
-```bash
-python Mushroom_Classification.py 'path_to/image.jpg'
-```
-
-Replace 'path_to/image.jpg' with the path to the image you want to classify.
 
 ## License
 This script is open-source and can be used by anyone under the MIT License.
