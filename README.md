@@ -129,6 +129,10 @@ The script performs the following steps:
     ```python
     top_3_predictions = predict_ensemble(image_path, model_paths, 'class_names_split.pickle')
     ```
+    or
+    ```python
+    top_prediction = get_top_prediction(top_3_predictions)
+    ```
 
 
 ## License
