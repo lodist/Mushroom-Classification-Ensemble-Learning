@@ -202,7 +202,7 @@ for i, split in enumerate(class_names_split):
     print(split)
 
 # Save the class names split
-with open('class_names_split_best.pickle', 'wb') as handle:
+with open('class_names_split.pickle', 'wb') as handle:
     pickle.dump(class_names_split, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 print("Class names split saved.")
