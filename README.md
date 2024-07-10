@@ -146,8 +146,11 @@ Additionally, combining the predictions from these smaller models provides a rob
 ![output](https://github.com/lodist/Mushroom-Classification/assets/75701170/6d8d6b99-39bb-4f13-9d45-466a7d6e6a73)
 
 Final Training Accuracy: 0.9181
+
 Final Validation Accuracy: 0.9132
+
 Final Training Loss: 0.2546
+
 Final Validation Loss: 0.3142
 
 
