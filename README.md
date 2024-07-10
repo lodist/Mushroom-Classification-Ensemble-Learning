@@ -143,7 +143,10 @@ This approach ensures that each model focuses on a manageable number of classes,
 Additionally, combining the predictions from these smaller models provides a robust ensemble method, enhancing overall prediction accuracy and reliability.
 
 ![output](https://github.com/lodist/Mushroom-Classification/assets/75701170/4a790cae-929c-48aa-8e1b-590a78fa8f49)
-
+Final Training Accuracy: 0.9181
+Final Validation Accuracy: 0.9132
+Final Training Loss: 0.2546
+Final Validation Loss: 0.3142
 
 
 ## License
