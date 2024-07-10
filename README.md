@@ -142,7 +142,7 @@ By splitting the dataset into smaller subsets and training four separate models,
 This approach ensures that each model focuses on a manageable number of classes, leading to better generalization and improved accuracy. 
 Additionally, combining the predictions from these smaller models provides a robust ensemble method, enhancing overall prediction accuracy and reliability.
 
-![output](https://github.com/lodist/Mushroom-Classification/assets/75701170/6f810cf1-71c4-478b-893e-ac9e20ca1f69)
+![output](https://github.com/lodist/Mushroom-Classification/assets/75701170/4a790cae-929c-48aa-8e1b-590a78fa8f49)
 
 
 
