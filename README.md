@@ -65,7 +65,7 @@ The script performs the following steps:
 
 2. **Configuration parameters**: Sets up the configuration parameters, including paths and hyperparameters.
 
-3. **Move folders with fewer images**: The script moves folders containing a minimum number of images to ensure sufficient data for training each class. Test with various limits and adapt as needed to ëxploit maximum potential.
+3. **Move folders with fewer images**: The script moves folders containing a minimum number of images to ensure sufficient data for training each class. Test with various limits and adapt as needed to exploit maximum potential.
 
     ```python
     def move_folders_with_fewer_images(source_dir, target_dir, min_images=100):
