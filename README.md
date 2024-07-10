@@ -134,6 +134,17 @@ The script performs the following steps:
     top_prediction = get_top_prediction(top_3_predictions)
     ```
 
+##Results
+
+The results of the training show promising performance, with the final training accuracy reaching 91.81% and validation accuracy at 91.32%. 
+The training loss and validation loss were recorded at 0.2546 and 0.3142 respectively. 
+By splitting the dataset into smaller subsets and training four separate models, each handling a portion of the classes, we achieved efficient model training and reduced computational load. 
+This approach ensures that each model focuses on a manageable number of classes, leading to better generalization and improved accuracy. 
+Additionally, combining the predictions from these smaller models provides a robust ensemble method, enhancing overall prediction accuracy and reliability.
+
+![output](https://github.com/lodist/Mushroom-Classification/assets/75701170/6f810cf1-71c4-478b-893e-ac9e20ca1f69)
+
+
 
 ## License
 This script is open-source and can be used by anyone under the MIT License.
