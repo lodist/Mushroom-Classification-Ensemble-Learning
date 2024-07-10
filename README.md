@@ -134,7 +134,7 @@ The script performs the following steps:
     top_prediction = get_top_prediction(top_3_predictions)
     ```
 
-##Results
+## Results
 
 The results of the training show promising performance, with the final training accuracy reaching 91.81% and validation accuracy at 91.32%. 
 The training loss and validation loss were recorded at 0.2546 and 0.3142 respectively. 
