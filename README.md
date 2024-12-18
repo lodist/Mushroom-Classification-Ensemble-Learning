@@ -43,8 +43,8 @@ Before running the code, ensure you have the following installed:
 
 1. Clone this repository to your local machine:
     ```bash
-    git clone https://github.com/<username>/FungiClassification.git
-    cd FungiClassification
+    git clone https://github.com/<username>/Mushroom-Classification.git
+    cd Mushroom-Classification
     ```
 
 2. Install the required Python packages:
