@@ -74,7 +74,7 @@ Before running the code, ensure you have the following installed:
 
 2. Install the required Python packages:
     ```bash
-    pip install tensorflow scikit-learn numpy matplotlib pandas
+    pip install -r requirements.txt
     ```
 
 3. Extract the dataset:
