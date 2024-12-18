@@ -86,42 +86,71 @@ Before running the code, ensure you have the following installed:
 
 The script performs the following steps:
 
-1. **Imports necessary libraries**: Imports modules from TensorFlow, Scikit-learn, and other necessary libraries for data handling and model building.
+1. **Imports necessary libraries**: Includes TensorFlow, Scikit-learn, and other libraries for data handling, model building, and deployment.
 
-2. **Configuration parameters**: Sets up the configuration parameters, including paths and hyperparameters.
-
-3. **Move folders with fewer images**: The script moves folders containing a minimum number of images to ensure sufficient data for training each class. Test with various limits and adapt as needed to exploit maximum potential.
+2. **Configuration parameters**: Centralizes paths and hyperparameters in a CONFIG dictionary for easier adjustment and reuse.
 
     ```python
-    def move_folders_with_fewer_images(source_dir, target_dir, min_images=100):
+    CONFIG = {
+        "source_dir": "all_fungi",
+        "base_dir": "images",
+        "train_dir": "train",
+        "val_dir": "val",
+        "input_shape": (224, 224, 3),
+        "epochs": 30,
+        "batch_size": 32,
+        "min_images": 100,
+        "split_ratio": 0.8
+    }
+    ```
+
+
+3. **Move folders with fewer images**: Ensures classes with at least 100 images are included in the training process. Classes with insufficient data are filtered out.
+
+    ```python
+    def move_folders_with_fewer_images(source_dir, target_dir, min_images):
         for folder_name in os.listdir(source_dir):
             folder_path = os.path.join(source_dir, folder_name)
             target_folder_path = os.path.join(target_dir, folder_name)
             if os.path.isdir(folder_path):
-                image_count = len([file for file in os.listdir(folder_path) if file.lower().endswith(('jpg', 'jpeg', 'png', 'bmp', 'tiff', 'webp'))])
+                image_count = len([
+                    file for file in os.listdir(folder_path) 
+                    if file.lower().endswith(('jpg', 'jpeg', 'png', 'bmp', 'tiff', 'webp'))
+                ])
                 if image_count > min_images:
-                    if os.path.exists(target_folder_path):
-                        shutil.rmtree(target_folder_path)  # Remove existing directory if it exists
+                    shutil.rmtree(target_folder_path, ignore_errors=True)
                     shutil.copytree(folder_path, target_folder_path)
     ```
 
-4. **Prepare and organize data**: Prepares the dataset by ensuring each species has enough images for training. Classes with fewer images are filtered out, and the remaining data is split into training and validation sets (80% training, 20% validation). This step ensures balanced and sufficient data for reliable model training.
+4. **Prepare and organize data**: Splits the filtered data into training (80%) and validation (20%) sets, ensuring balanced and sufficient data for reliable model training.
 
     ```python
-    prepare_data('data/fungi_images', 'data/fungi_images/train', 'data/fungi_images/val')
+    def prepare_data(base_dir, train_dir, val_dir, split_ratio):
+        supported_extensions = ['.jpg', '.jpeg', '.png', '.ppm', '.bmp', '.pgm', '.tif', '.tiff', '.webp']
+        for subdir, _, files in os.walk(base_dir):
+            if subdir == base_dir:
+                continue
+            image_files = [f for f in files if any(f.lower().endswith(ext) for ext in supported_extensions)]
+            if not image_files:
+                continue
+            train_files, val_files = train_test_split(image_files, train_size=split_ratio, random_state=42)
+            class_name = os.path.basename(subdir)
+            train_class_dir = os.path.join(train_dir, class_name)
+            val_class_dir = os.path.join(val_dir, class_name)
+            os.makedirs(train_class_dir, exist_ok=True)
+            os.makedirs(val_class_dir, exist_ok=True)
+            for file_name in train_files:
+                shutil.copy(os.path.join(subdir, file_name), os.path.join(train_class_dir, file_name))
+            for file_name in val_files:
+                shutil.copy(os.path.join(subdir, file_name), os.path.join(val_class_dir, file_name))
     ```
 
-5. **Split class names into subsets**: The class names are split into four subsets to manage the computational complexity of training a single model with 1,394 classes. This approach allows each model to focus on a manageable subset of classes, reducing memory usage and training time while improving accuracy for fine-grained classification tasks. Each subset corresponds to a distinct portion of the class hierarchy, ensuring balanced coverage.
+5. **Split class names into subsets**: The class names are split into four subsets to manage the computational complexity of training a single model with 1,394 classes. This approach allows each model to focus on a manageable subset of classes, reducing memory usage and training time while improving accuracy for fine-grained classification tasks.
 
     ```python
-    # Get the class names from the directory names, assuming they are sorted alphabetically
-    class_names = sorted(os.listdir(train_dir))
-
-    # Split the class names into four subsets
+    class_names = sorted(os.listdir(CONFIG["train_dir"]))
     split_size = len(class_names) // 4
     class_names_split = [class_names[i:i + split_size] for i in range(0, len(class_names), split_size)]
-
-    # Ensure the last group includes any remaining classes
     if len(class_names_split) > 4:
         class_names_split[-2].extend(class_names_split[-1])
         class_names_split = class_names_split[:-1]
@@ -130,16 +159,13 @@ The script performs the following steps:
 6. **Train models for each subset**: Trains four separate models, each on a subset of the classes, to handle the large dataset efficiently.
 
     ```python
-    # Loop and train models for each class subset
     for i, class_subset in enumerate(class_names_split):
         print(f"Training model for class subset {i + 1}")
-        train_loader, val_loader = get_data_loaders_subset(train_dir, val_dir, class_subset)
-        model = build_model(input_shape, len(class_subset))
-        history = train_model(model, train_loader, val_loader, f'mushroom_classification_model_{i}.h5', epochs)
-        model.save(f'mushroom_classification_model_{i}.h5')
-        model_paths.append(f'mushroom_classification_model_{i}.h5')
-
-    print("Model training complete. Model paths:", model_paths)
+        train_loader, val_loader = get_data_loaders_subset(CONFIG["train_dir"], CONFIG["val_dir"], class_subset)
+        model = build_model(CONFIG["input_shape"], len(class_subset))
+        model_path = f'mushroom_classification_model_{i}.keras'
+        train_model(model, train_loader, val_loader, model_path, CONFIG["epochs"])
+        model.save(model_path)
     ```
 
 7. **Convert models to TensorFlow Lite**: Converts the trained models to TensorFlow Lite format for efficient deployment on resource-constrained devices, such as mobile phones or edge devices. TensorFlow Lite optimizes model size and inference speed, making it ideal for real-time fungi identification applications.
@@ -149,14 +175,10 @@ The script performs the following steps:
         convert_to_tflite(model_path)
     ```
 
-8. **Apply models to make predictions**: Predictions are made using all trained models, each specializing in a subset of classes. The results from these models are combined using an ensemble approach, where probabilities are aggregated to identify the top predictions. This method enhances prediction reliability and overall accuracy by leveraging the strengths of individual models.
+8. **Apply models to make predictions**: Predictions are made using all trained models, each specializing in a subset of classes. The results from these models are combined using an ensemble approach, where probabilities are aggregated to identify the top predictions.
 
     ```python
     top_3_predictions = predict_ensemble(image_path, model_paths, 'class_names_split.pickle')
-    ```
-    or
-    ```python
-    top_prediction = get_top_prediction(top_3_predictions)
     ```
 
 ## Results
