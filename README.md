@@ -43,7 +43,7 @@ Before running the code, ensure you have the following installed:
 
 1. Clone this repository to your local machine:
     ```bash
-    git clone https://github.com/<username>/Mushroom-Classification.git
+    git clone https://github.com/lodist/Mushroom-Classification.git
     cd Mushroom-Classification
     ```
 
