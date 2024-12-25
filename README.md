@@ -202,10 +202,10 @@ The models used in this project are provided in TensorFlow Lite (.tflite) format
 
 Model Conversion Details
 
-Original Format: The models are trained and saved in Keras format (mushroom_classification_model_X.keras) but are too large to include in this repository.
-Conversion: The script convert_models_tflite.py is used to convert these Keras models into TensorFlow Lite format (mushroom_classification_model_X.tflite).
-Current Storage: The converted TensorFlow Lite models (.tflite) are included in the /models folder for immediate use.
-Recreating the TensorFlow Lite Models
+- Original Format: The models are trained and saved in Keras format (mushroom_classification_model_X.keras) but are too large to include in this repository.
+- Conversion: The script convert_models_tflite.py is used to convert these Keras models into TensorFlow Lite format (mushroom_classification_model_X.tflite).
+- Current Storage: The converted TensorFlow Lite models (.tflite) are included in the /models folder for immediate use.
+- Recreating the TensorFlow Lite Models
 If you have access to the original .keras models and wish to reconvert them to TensorFlow Lite:
 
 Place the .keras models in the desired directory.
