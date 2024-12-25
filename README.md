@@ -84,6 +84,8 @@ Before running the code, ensure you have the following installed:
 
 ## Script Explanation
 
+The script is provided both in .py as in .ipynb format.
+
 The script performs the following steps:
 
 1. **Imports necessary libraries**: Includes TensorFlow, Scikit-learn, and other libraries for data handling, model building, and deployment.
@@ -198,22 +200,8 @@ Final Training Loss: 0.2546
 Final Validation Loss: 0.3142
 
 ## Download Models
-The models used in this project are provided in TensorFlow Lite (.tflite) format and can be found in the /models folder. These models were originally trained in Keras format (.keras) but are not included in the repository due to size limitations. Instead, the .keras models are converted to TensorFlow Lite format using the script convert_models_tflite.py, which is attached to this repository.
+The models used in this project are provided in TensorFlow Lite (.tflite) format and can be found in the /models folder. 
 
-Model Conversion Details
-
-- Original Format: The models are trained and saved in Keras format (mushroom_classification_model_X.keras) but are too large to include in this repository.
-- Conversion: The script convert_models_tflite.py is used to convert these Keras models into TensorFlow Lite format (mushroom_classification_model_X.tflite).
-- Current Storage: The converted TensorFlow Lite models (.tflite) are included in the /models folder for immediate use.
-- Recreating the TensorFlow Lite Models
-If you have access to the original .keras models and wish to reconvert them to TensorFlow Lite:
-
-Place the .keras models in the desired directory.
-Run the convert_models_tflite.py script as described in the script's documentation.
-The .tflite models will be generated and saved in the specified folder.
-Folder Structure
-TensorFlow Lite Models: The converted .tflite models are stored in the /models folder.
-Keras Models: The original .keras models are not included in this repository due to file size restrictions.
 
 ## License
 This script is open-source and can be used by anyone under the MIT License.
