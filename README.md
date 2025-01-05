@@ -118,7 +118,7 @@ Before running the code, ensure you have the following installed:
 
 ## Script Explanation
 
-The script is provided both in .py as in .ipynb format.
+The script is provided both in .py as in .ipynb format. The .ipynb format includes ensemble learning to combine predictions from multiple models.
 
 The script performs the following steps:
 
