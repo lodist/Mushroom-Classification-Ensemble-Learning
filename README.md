@@ -40,8 +40,7 @@ The ensemble learning process is implemented in the Mushroom_Classification_Ense
 - These predictions represent the likelihood of the input image belonging to each class in the subset.
 
 3. Aggregating Predictions:
-
-The class probabilities from all models are combined into a single set of predictions using the ensemble approach:
+   The class probabilities from all models are combined into a single set of predictions using the ensemble approach:
 - Probabilities for the same class across multiple models are summed to create a combined score.
 - The combined scores are normalized to ensure they represent valid probabilities.
 
